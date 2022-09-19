@@ -1,31 +1,32 @@
 # Aprendiendo a usar Docker
 
-```docker search [name-image]```: se utiliza para buscar imagenes docker en el repositorio central de docker que es docker hub
+`docker search [name-image]`: se utiliza para buscar imagenes docker en el repositorio central de docker que es docker hub
 
-```docker pull [name-image]```: descarga una imagen de docker hub
+`docker pull [name-image]`: descarga una imagen de docker hub
 
-```docker pull --all-tags [name-image]```: extraera todas las imagenes del registro
+`docker pull --all-tags [name-image]`: extraera todas las imagenes del registro
 
-```docker images```: muestra las imagenes que tengas en tu maquina de forma local
+`docker images`: muestra las imagenes que tengas en tu maquina de forma local
 
 ## Eliminar contenedores
 
 Para pararlos puede usarse:
 
-```docker stop $(docker ps -a -q)```
+`docker stop $(docker ps -a -q)`
 
 Y para eliminarlos:
 
-```docker rm $(docker ps -a -q)```
+`docker rm $(docker ps -a -q)`
 
 ## Crear nuevos contenedores
 
-```docker container create [OPTIONS] IMAGE [COMMAND] [ARG...]```
+`docker container create [OPTIONS] IMAGE [COMMAND] [ARG...]`
 
 ## Docker run
+
 Corre un comando en un nuevo contenedor
 
-```docker run [OPTIONS] IMAGE [COMMAND] [ARG...]```
+`docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
 
 ```
 docker run --name debian-test -it debian
@@ -49,20 +50,20 @@ docker run --name debian-test -it debian
 ```
 
 ### Example
+
 ```
   docker run --name second-nginx -v ~/Downloads/some-statis:/usr/share/nginx/html:ro -d -p 3500:80 nginx
 ```
 
---name: lo usamos para darle un nombre al contenedor para identificarlo
+\--name: lo usamos para darle un nombre al contenedor para identificarlo
 
--v: le vamos a proporcioanr datos tenemos que poner un path absoluto ~/Downloads/some-static despues de : los puntos viene el path donde se copiaran los archivos en el contenedor
+\-v: le vamos a proporcioanr datos tenemos que poner un path absoluto \~/Downloads/some-static despues de : los puntos viene el path donde se copiaran los archivos en el contenedor
 
--d: le indicamos que se cree y se ejecute en modo segundo plano
+\-d: le indicamos que se cree y se ejecute en modo segundo plano
 
--p: vamos a tenerlo disponible por el puerto 3500
+\-p: vamos a tenerlo disponible por el puerto 3500
 
 IMAGE - nginx: la imagen que usaremos para crear el contenedor
-
 
 ## User Volumenes en Docker
 
@@ -70,15 +71,16 @@ volumenes: idealeas para almacenar informacion que cambiara constantemente
 
 mount | montajes: es ideal para informacion que no necesita ser modificada constantemente
 
-```docker volume create my-vol```: crea un volumen
+`docker volume create my-vol`: crea un volumen
 
-```docker volume ls```: lista todos los volumenes
+`docker volume ls`: lista todos los volumenes
 
-```docker volume inspect [name-volume]```: inspecciona un volumen
+`docker volume inspect [name-volume]`: inspecciona un volumen
 
-```docker volume rm [name-volume]```: elimina un volumen
+`docker volume rm [name-volume]`: elimina un volumen
 
 #### Example
+
 ```
   docker run -d --name devtest -v myvo12:/app nginx
 
@@ -92,11 +94,11 @@ mount | montajes: es ideal para informacion que no necesita ser modificada const
 
 tips para crear Dockerfiles
 
-```docker build .```: empezara a construir la imagen usando el contexto actual donde este ubicado
+`docker build .`: empezara a construir la imagen usando el contexto actual donde este ubicado
 
-```dcoker build -f [path/example]```: creas una imagen usando un Dockerfile en un contexto diferente al actual
+`dcoker build -f [path/example]`: creas una imagen usando un Dockerfile en un contexto diferente al actual
 
-```docker build -t [name-image] .```: con la -t agregas un nombre a la imagen a crear
+`docker build -t [name-image] .`: con la -t agregas un nombre a la imagen a crear
 
 ```
   # Formato de un Dockerfile
@@ -109,6 +111,7 @@ tips para crear Dockerfiles
 ```
 
 Examples Dockerfiles:
+
 ```
   # Establecemos la imagen base
   FROM busybox
@@ -141,18 +144,17 @@ Examples Dockerfiles:
   **/*.js: excluira todos los archivos que terminen con la extension .js desde el directorio raiz
   !module*.js: es excluyen los archivos
 
-
 ```
 
 **Tip:** cuando creas un contenedor con un Dockerfile y usas EXPOSE, expondras el puerto proporcionado, pero aun asi cuando tu usas **docker run** debes proporcionar el puerto con la bandera --publish | -p
 
 ejemplo:
+
 ```
   EXPOSE 5000
 
   cuando corras ese contenedor
   docker run --publish 3000:5000 example-node
-
 ```
 
 **Example Dockerfile:**
@@ -178,13 +180,12 @@ ejemplo:
 
   # ejecutamos el comando
   CMD [ "node", "server.js" ]
-
 ```
 
-**Tip:** ```docker exec -it [name-node-container] sh``` para entrar en un contenedor docker
+**Tip:** `docker exec -it [name-node-container] sh` para entrar en un contenedor docker
 
-*Example*
-**docker run:**
+_Example_ **docker run:**
+
 ```
   docker run --detach --publish 2100:8000 --name rest-server node-docker
 
@@ -192,5 +193,3 @@ ejemplo:
   --publish | -p : asigna los puertos para acceder al contenedor [ puerto exterior : puerto dentro del contenedor]
   --name : da un nombre al contenedor
 ```
-
-

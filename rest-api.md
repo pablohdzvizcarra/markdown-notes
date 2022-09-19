@@ -24,8 +24,6 @@ debemos almacenar en cache recursos cuando estos puedan ser almacenados, ais red
 
 **Layered system**
 
-almacenas datos en el servidor A, y se autentica en el servidor B
+almacenas datos en el servidor A, y se autentica en el servidor B.
 
 **Code on demand (optional)**
-
-
